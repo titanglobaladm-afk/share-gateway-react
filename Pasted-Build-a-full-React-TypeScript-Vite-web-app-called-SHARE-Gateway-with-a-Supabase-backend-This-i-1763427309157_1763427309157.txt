@@ -1,0 +1,201 @@
+Build a full React + TypeScript + Vite web app called SHARE Gateway, with a Supabase backend. This is an onboarding and training portal for staff, investors, and partners of the SHARE Mobile Clinic in Haiti. The app must include all of the following in one complete project:
+
+1. Tech Stack
+
+React 18 + TypeScript
+
+Vite build tool
+
+TailwindCSS
+
+React Router v6
+
+Supabase client (auth + database)
+
+ESLint and basic TypeScript config
+
+Mobile-friendly layout
+
+2. Supabase Setup
+
+Configure a Supabase client with:
+
+Email/password authentication
+
+user_courses table with these fields:
+
+id (uuid)
+
+user_id (uuid)
+
+course_id (text)
+
+assigned_at (timestamp)
+
+completed_at (timestamp nullable)
+
+progress_percentage (integer)
+
+lessons_completed (jsonb array of lesson IDs)
+
+quizzes_completed (jsonb array of quiz IDs)
+
+Create helper functions:
+
+markLessonComplete(userId, courseId, lessonId)
+
+markQuizComplete(userId, courseId, quizId)
+
+calculateProgress(userId, courseId)
+
+Updating lesson or quiz completion must push lessonId/quizId into the JSONB arrays and automatically update progress_percentage.
+
+3. Routing Structure
+
+Create these routes:
+
+/ – Landing page
+
+/login
+
+/register
+
+/dashboard
+
+/course/:courseId
+
+/course/:courseId/lesson/:lessonId
+
+/course/:courseId/quiz/:quizId
+
+Protect dashboard and course routes by requiring user authentication.
+
+4. Pages
+
+Build the following pages with simple, clean UI:
+
+Landing Page
+
+Overview of SHARE Gateway
+
+Buttons: “Login”, “Register”
+
+Login/Register
+
+Email + password forms
+
+Redirect to dashboard after login
+
+Dashboard
+
+Shows list of assigned courses from Supabase
+
+Shows progress bars
+
+Shows completed vs remaining lessons & quizzes
+
+Course View
+
+List of lessons
+
+List of quizzes
+
+Each item clickable
+
+Lesson View
+
+Display lesson content (placeholder text)
+
+“Mark Complete” button → updates Supabase JSONB array
+
+Quiz View
+
+Multiple choice quiz with:
+
+question
+
+choices[]
+
+correctAnswer
+
+After passing → call markQuizComplete
+
+5. Data Models (hardcode initial structure)
+
+Courses object example:
+
+const courses = {
+  orientation_common: {
+    title: "SHARE Staff Orientation",
+    lessons: [
+      { id: "l1", title: "Welcome to SHARE" },
+      { id: "l2", title: "Our Mission" }
+    ],
+    quizzes: [
+      {
+        id: "q1",
+        title: "Orientation Quiz",
+        questions: [
+          { question: "What is SHARE's mission?", choices: ["A", "B", "C"], answer: 1 }
+        ]
+      }
+    ]
+  }
+};
+
+6. Progress Logic
+
+When a lesson or quiz is completed:
+
+Add its ID to the correct JSONB array
+
+Recalculate progress as:
+
+progress = (completedLessons + completedQuizzes) / (totalLessons + totalQuizzes) * 100
+
+
+Update progress_percentage
+
+If progress = 100, set completed_at timestamp
+
+7. UI Requirement
+
+Clean layout
+
+Tailwind for styling
+
+Mobile friendly
+
+Must include navigation on top
+
+Dashboard needs progress bars
+
+Course page needs lists of lessons & quizzes
+
+Quiz page needs MCQ layout
+
+8. Final Requirement
+
+Generate a complete, runnable project including:
+
+Full file structure
+
+All pages/components
+
+All routing
+
+All Supabase logic
+
+Tailwind config
+
+package.json
+
+vite.config
+
+tsconfig
+
+Complete React code
+
+Do not give summaries.
+Do not shorten code.
+Output the full application code in one response.
